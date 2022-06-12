@@ -7,11 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{22CE2D10-3E5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A99D4EC2-954A-4886-B987-505661AF8ED3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetMP.Catalog.Core", "src\DotNetMP.Catalog.Core\DotNetMP.Catalog.Core.csproj", "{A1E1A8D8-E875-485A-ADC5-EC30F68DF648}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetMP.Catalog.Core", "src\DotNetMP.Catalog.Core\DotNetMP.Catalog.Core.csproj", "{A1E1A8D8-E875-485A-ADC5-EC30F68DF648}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetMP.Catalog.Infrastructure", "src\DotNetMP.Catalog.Infrastructure\DotNetMP.Catalog.Infrastructure.csproj", "{DB9E1221-B032-41B1-9996-E3BA6B8967B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetMP.Catalog.Infrastructure", "src\DotNetMP.Catalog.Infrastructure\DotNetMP.Catalog.Infrastructure.csproj", "{DB9E1221-B032-41B1-9996-E3BA6B8967B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetMP.Catalog.WebApi", "src\DotNetMP.Catalog.WebApi\DotNetMP.Catalog.WebApi.csproj", "{7A8BEF62-C39D-4384-A733-E5EED987826B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetMP.Catalog.WebApi", "src\DotNetMP.Catalog.WebApi\DotNetMP.Catalog.WebApi.csproj", "{7A8BEF62-C39D-4384-A733-E5EED987826B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{C571A631-F255-4F42-9987-9758EF02F238}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetMP.Catalog.Core.Tests", "tests\unit\DotNetMP.Catalog.Core.Tests\DotNetMP.Catalog.Core.Tests.csproj", "{D0794A20-0380-410A-9CDF-BB7F72EC525E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,10 @@ Global
 		{7A8BEF62-C39D-4384-A733-E5EED987826B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A8BEF62-C39D-4384-A733-E5EED987826B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A8BEF62-C39D-4384-A733-E5EED987826B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0794A20-0380-410A-9CDF-BB7F72EC525E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0794A20-0380-410A-9CDF-BB7F72EC525E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0794A20-0380-410A-9CDF-BB7F72EC525E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0794A20-0380-410A-9CDF-BB7F72EC525E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +47,8 @@ Global
 		{A1E1A8D8-E875-485A-ADC5-EC30F68DF648} = {22CE2D10-3E51-465A-AAC2-232C5D16495D}
 		{DB9E1221-B032-41B1-9996-E3BA6B8967B3} = {22CE2D10-3E51-465A-AAC2-232C5D16495D}
 		{7A8BEF62-C39D-4384-A733-E5EED987826B} = {22CE2D10-3E51-465A-AAC2-232C5D16495D}
+		{C571A631-F255-4F42-9987-9758EF02F238} = {A99D4EC2-954A-4886-B987-505661AF8ED3}
+		{D0794A20-0380-410A-9CDF-BB7F72EC525E} = {C571A631-F255-4F42-9987-9758EF02F238}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5920ED88-EC76-4B17-82B2-6F7326E872B4}

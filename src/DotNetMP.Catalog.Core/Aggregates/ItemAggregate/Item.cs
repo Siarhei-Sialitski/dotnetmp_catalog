@@ -13,9 +13,7 @@ public class Item : EntityBase, IAggregateRoot
     public Guid CategoryId { get; set; }
 
     protected Item()
-    {
-
-    }
+    { }
 
     public Item(Guid categoryId, string name, decimal price, int amount, string? description = null, string? image = null)
     {

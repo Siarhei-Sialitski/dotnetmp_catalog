@@ -27,8 +27,6 @@ public class Startup
             options.SuppressInferBindingSourcesForParameters = true;
         });
 
-        services.AddAutoMapper(typeof(Startup));
-
         services.AddCoreDependencies();
         services.AddInfrastructureDependencies(Configuration);
     }

@@ -1,31 +1,33 @@
 ﻿using Ardalis.ApiEndpoints;
-using AutoMapper;
 using DotNetMP.Catalog.Core.Aggregates.CategoryAggregate;
-using DotNetMP.Catalog.Core.Interfaces;
-using DotNetMP.Catalog.WebApi.Endpoints.CategoryEndpoints.Add;
+using DotNetMP.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetMP.Catalog.WebApi.Endpoints.CategoryEndpoints.Update;
 
 public class UpdateCategory : EndpointBaseAsync
     .WithRequest<UpdateCategoryRequest>
-    .WithoutResult
+    .WithActionResult
 {
-    private readonly ICommandService<Category> _categoryCommandService;
-    private readonly IMapper _mapper;
+    private readonly IRepository<Category> _categoryRepository;
 
-    public UpdateCategory(
-        ICommandService<Category> categoryCommandService,
-        IMapper mapper)
+    public UpdateCategory(IRepository<Category> categoryRepository)
     {
-        _categoryCommandService = categoryCommandService;
-        _mapper = mapper;
+        _categoryRepository = categoryRepository;
     }
 
     [HttpPut(UpdateCategoryRequest.Route)]
-    public async override Task HandleAsync(UpdateCategoryRequest request, CancellationToken cancellationToken = default)
+    public async override Task<ActionResult> HandleAsync(UpdateCategoryRequest request, CancellationToken cancellationToken = default)
     {
-        var category = _mapper.Map<Category>(request.Category);
-        await _categoryCommandService.UpdateAsync(category, cancellationToken);
+        var category = await _categoryRepository.GetByIdAsync(request.Id);
+        if (category == null)
+        {
+            return NotFound();
+        }
+
+        // Update logic
+        await _categoryRepository.UpdateAsync(category, cancellationToken);
+
+        return Ok(category);
     }
 }

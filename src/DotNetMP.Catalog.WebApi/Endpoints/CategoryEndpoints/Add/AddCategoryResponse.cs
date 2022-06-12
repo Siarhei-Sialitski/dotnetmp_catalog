@@ -1,6 +1,10 @@
-﻿using DotNetMP.Catalog.WebApi.Endpoints.CategoryEndpoints.ViewModels.Category;
+﻿namespace DotNetMP.Catalog.WebApi.Endpoints.CategoryEndpoints.Add;
 
-namespace DotNetMP.Catalog.WebApi.Endpoints.CategoryEndpoints.Add;
-
-public class AddCategoryResponse : ReadCategoryViewModel
-{ }
+public class AddCategoryResponse
+{
+    public AddCategoryResponse(CategoryRecord categoryRecord)
+    {
+        Category = categoryRecord;
+    }
+    public CategoryRecord Category { get; set; }
+}

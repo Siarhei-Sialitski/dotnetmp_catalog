@@ -1,26 +1,33 @@
 ﻿using Ardalis.ApiEndpoints;
 using DotNetMP.Catalog.Core.Aggregates.CategoryAggregate;
-using DotNetMP.Catalog.Core.Interfaces;
 using DotNetMP.Catalog.WebApi.Endpoints.CategoryEndpoints.GetById;
+using DotNetMP.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetMP.Catalog.WebApi.Endpoints.CategoryEndpoints.Delete;
 
 public class DeleteCategory : EndpointBaseAsync
     .WithRequest<DeleteCategoryRequest>
-    .WithoutResult
+    .WithActionResult
 {
-    private readonly ICommandService<Category> _categoryCommandService;
+    private readonly IRepository<Category> _categoryRepository;
 
     public DeleteCategory(
-        ICommandService<Category> categoryCommandService)
+        IRepository<Category> categoryCommandService)
     {
-        _categoryCommandService = categoryCommandService;
+        _categoryRepository = categoryCommandService;
     }
 
     [HttpDelete(DeleteCategoryRequest.Route)]
-    public async override Task HandleAsync(DeleteCategoryRequest request, CancellationToken cancellationToken = default)
+    public async override Task<ActionResult> HandleAsync(DeleteCategoryRequest request, CancellationToken cancellationToken = default)
     {
-        await _categoryCommandService.DeleteAsync(request.CategoryId, cancellationToken);
+        var category = await _categoryRepository.GetByIdAsync(request.CategoryId);
+        if (category == null)
+        {
+            return NoContent();
+        }
+
+        await _categoryRepository.DeleteAsync(category, cancellationToken);
+        return Ok();
     }
 }

@@ -7,8 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="Endpoints\Item\**" />
+    <Content Remove="Controllers\**" />
+    <Content Remove="Endpoints\Item\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="Endpoints\Item\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="Endpoints\Item\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Ardalis.ApiEndpoints" Version="4.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -19,11 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotNetMP.Catalog.Infrastructure\DotNetMP.Catalog.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Endpoints\Item\" />
   </ItemGroup>
 
 </Project>

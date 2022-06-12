@@ -1,8 +1,6 @@
 ﻿using Ardalis.ApiEndpoints;
-using AutoMapper;
 using DotNetMP.Catalog.Core.Aggregates.CategoryAggregate;
-using DotNetMP.Catalog.Core.Interfaces;
-using DotNetMP.Catalog.WebApi.Endpoints.CategoryEndpoints.ViewModels.Category;
+using DotNetMP.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetMP.Catalog.WebApi.Endpoints.CategoryEndpoints.Get;
@@ -11,28 +9,30 @@ public class GetCategory : EndpointBaseAsync
     .WithoutRequest
     .WithActionResult<GetCategoryResponse>
 {
-    private readonly IQueryService<Category> _categoryQueryService;
-    private readonly IMapper _mapper;
+    private readonly IRepository<Category> _categoryRepository;
 
-    public GetCategory(
-        IQueryService<Category> categoryQueryService,
-        IMapper mapper)
+    public GetCategory(IRepository<Category> categoryRepository)
     {
-        _categoryQueryService = categoryQueryService;
-        _mapper = mapper;
+        _categoryRepository = categoryRepository;
     }
 
     [HttpGet("/Categories")]
     public async override Task<ActionResult<GetCategoryResponse>> HandleAsync(CancellationToken cancellationToken = default)
     {
-        var categories = await _categoryQueryService.GetListAsync(cancellationToken);
+        var categories = await _categoryRepository.ListAsync(cancellationToken);
 
         if (!categories.Any())
         {
             return NoContent();
         }
 
-        var categoryViewModels = _mapper.Map<List<ReadCategoryViewModel>>(categories);
-        return new GetCategoryResponse() { Categories = categoryViewModels};
+        var response = new GetCategoryResponse()
+        {
+            Categories = categories
+                .Select(c => new CategoryRecord(c.Id, c.Name, c.Image, c.ParentCategoryId))
+                .ToList()
+        };
+
+        return response;
     }
 }

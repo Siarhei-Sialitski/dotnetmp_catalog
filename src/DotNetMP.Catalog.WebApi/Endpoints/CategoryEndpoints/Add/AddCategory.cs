@@ -1,32 +1,29 @@
 ﻿using Ardalis.ApiEndpoints;
-using AutoMapper;
 using DotNetMP.Catalog.Core.Aggregates.CategoryAggregate;
-using DotNetMP.Catalog.Core.Interfaces;
+using DotNetMP.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetMP.Catalog.WebApi.Endpoints.CategoryEndpoints.Add;
 
-public class UpdateCategory : EndpointBaseAsync
+public class AddCategory : EndpointBaseAsync
     .WithRequest<AddCategoryRequest>
     .WithActionResult<AddCategoryResponse>
 {
-    private readonly ICommandService<Category> _categoryCommandService;
-    private readonly IMapper _mapper;
+    private readonly IRepository<Category> _categoryRepository;
 
-    public UpdateCategory(
-        ICommandService<Category> categoryCommandService,
-        IMapper mapper)
+    public AddCategory(IRepository<Category> categoryRepository)
     {
-        _categoryCommandService = categoryCommandService;
-        _mapper = mapper;
+        _categoryRepository = categoryRepository;
     }
 
     [HttpPost(AddCategoryRequest.Route)]
     public async override Task<ActionResult<AddCategoryResponse>> HandleAsync(AddCategoryRequest request, CancellationToken cancellationToken = default)
     {
-        var category = _mapper.Map<Category>(request.Category);
-        var createdCategory = await _categoryCommandService.AddAsync(category, cancellationToken);
+        var category = new Category(request.Name, request.Image, request.ParentCategoryId);
 
-        return _mapper.Map<AddCategoryResponse>(createdCategory);
+        var createdCategory = await _categoryRepository.AddAsync(category, cancellationToken);
+
+        return new AddCategoryResponse(
+            new CategoryRecord(createdCategory.Id, createdCategory.Name, createdCategory.Image, createdCategory.ParentCategoryId));
     }
 }
