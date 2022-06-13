@@ -41,15 +41,13 @@ public static class SeedDataManager
         }
         dbContext.SaveChanges();
 
-        var electronicsCategory = new Category("Electronics");
-        var electronisCategoryEntity = dbContext.Categories.Add(electronicsCategory);
-        dbContext.SaveChanges();
+        var electronicsCategory = new Category("Electronics", null, null);
+        dbContext.Categories.Add(electronicsCategory);
 
-        var tvCategory = new Category("TV", null, electronisCategoryEntity.Entity.Id);
-        var tvCategoryEntity = dbContext.Categories.Add(tvCategory);
-        dbContext.SaveChanges();
+        var tvCategory = new Category("TV", null, electronicsCategory);
+        dbContext.Categories.Add(tvCategory);
 
-        var item = new Item(tvCategoryEntity.Entity.Id, "Samsung", (decimal)12.4, 10, "Samsung TV");
+        var item = new Item(tvCategory, "Samsung", (decimal)12.4, 10, "Samsung TV");
         dbContext.Items.Add(item);
         dbContext.SaveChanges();
     }

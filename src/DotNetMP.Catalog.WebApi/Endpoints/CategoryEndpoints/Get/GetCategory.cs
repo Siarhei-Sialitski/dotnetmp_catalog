@@ -23,7 +23,7 @@ public class GetCategory : EndpointBaseAsync
 
         if (!categories.Any())
         {
-            return NoContent();
+            return NotFound();
         }
 
         var response = new GetCategoryResponse()

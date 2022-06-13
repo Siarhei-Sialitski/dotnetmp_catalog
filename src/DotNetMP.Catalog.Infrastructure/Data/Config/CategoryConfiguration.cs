@@ -12,9 +12,12 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .HasColumnType("UNIQUEIDENTIFIER");
 
         builder
-            .HasOne<Category>()
-            .WithMany()
-            .HasForeignKey(c => c.ParentCategoryId);
+            .HasOne(c => c.ParentCategory)
+            .WithMany(c => c.ChildCategories);
+
+        builder
+            .HasMany(c => c.Items)
+            .WithOne(i => i.Category);
 
         builder.Property(c => c.Name)
             .IsRequired();

@@ -19,13 +19,33 @@ public class UpdateCategory : EndpointBaseAsync
     [HttpPut(UpdateCategoryRequest.Route)]
     public async override Task<ActionResult> HandleAsync(UpdateCategoryRequest request, CancellationToken cancellationToken = default)
     {
-        var category = await _categoryRepository.GetByIdAsync(request.Id);
+        var updateCategory = request.Category;
+
+        if (updateCategory == null)
+        {
+            return BadRequest();
+        }
+
+        var category = await _categoryRepository.GetByIdAsync(updateCategory.Id);
         if (category == null)
         {
             return NotFound();
         }
 
-        // Update logic
+        Category? parentCategory = null;
+        if (updateCategory.ParentCategoryId.HasValue)
+        {
+            parentCategory = await _categoryRepository.GetByIdAsync(updateCategory.ParentCategoryId.Value);
+            if (parentCategory == null)
+            {
+                return NotFound("Parent category doesn't exist.");
+            }
+        }
+
+        category.UpdateName(updateCategory.Name);
+        category.UpdateImage(updateCategory.Image);
+        category.UpdateParentCategory(parentCategory);
+
         await _categoryRepository.UpdateAsync(category, cancellationToken);
 
         return Ok(category);

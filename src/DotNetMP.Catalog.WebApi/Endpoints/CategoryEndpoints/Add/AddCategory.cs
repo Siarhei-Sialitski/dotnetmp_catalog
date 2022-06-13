@@ -19,7 +19,17 @@ public class AddCategory : EndpointBaseAsync
     [HttpPost(AddCategoryRequest.Route)]
     public async override Task<ActionResult<AddCategoryResponse>> HandleAsync(AddCategoryRequest request, CancellationToken cancellationToken = default)
     {
-        var category = new Category(request.Name, request.Image, request.ParentCategoryId);
+        Category? parentCategory = null;
+        if (request.Category.ParentCategoryId.HasValue)
+        {
+            parentCategory = await _categoryRepository.GetByIdAsync(request.Category.ParentCategoryId.Value);
+            if (parentCategory == null)
+            {
+                return NotFound("Parent category doesn't exist.");
+            }
+
+        }
+        var category = new Category(request.Category.Name, request.Category.Image, parentCategory);
 
         var createdCategory = await _categoryRepository.AddAsync(category, cancellationToken);
 

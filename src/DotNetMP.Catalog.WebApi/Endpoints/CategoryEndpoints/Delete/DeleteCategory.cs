@@ -24,7 +24,7 @@ public class DeleteCategory : EndpointBaseAsync
         var category = await _categoryRepository.GetByIdAsync(request.CategoryId);
         if (category == null)
         {
-            return NoContent();
+            return NotFound();
         }
 
         await _categoryRepository.DeleteAsync(category, cancellationToken);

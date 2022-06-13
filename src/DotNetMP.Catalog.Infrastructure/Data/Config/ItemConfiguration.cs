@@ -1,5 +1,4 @@
-﻿using DotNetMP.Catalog.Core.Aggregates.CategoryAggregate;
-using DotNetMP.Catalog.Core.Aggregates.ItemAggregate;
+﻿using DotNetMP.Catalog.Core.Aggregates.ItemAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -23,9 +22,8 @@ public class ItemConfiguration : IEntityTypeConfiguration<Item>
             .IsRequired();
 
         builder
-            .HasOne<Category>()
-            .WithMany()
-            .HasForeignKey(i => i.CategoryId);
+            .HasOne(i => i.Category)
+            .WithMany(c => c.Items);
 
     }
 }

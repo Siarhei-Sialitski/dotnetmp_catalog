@@ -79,18 +79,29 @@ namespace DotNetMP.Catalog.Infrastructure.Migrations
 
             modelBuilder.Entity("DotNetMP.Catalog.Core.Aggregates.CategoryAggregate.Category", b =>
                 {
-                    b.HasOne("DotNetMP.Catalog.Core.Aggregates.CategoryAggregate.Category", null)
-                        .WithMany()
+                    b.HasOne("DotNetMP.Catalog.Core.Aggregates.CategoryAggregate.Category", "ParentCategory")
+                        .WithMany("ChildCategories")
                         .HasForeignKey("ParentCategoryId");
+
+                    b.Navigation("ParentCategory");
                 });
 
             modelBuilder.Entity("DotNetMP.Catalog.Core.Aggregates.ItemAggregate.Item", b =>
                 {
-                    b.HasOne("DotNetMP.Catalog.Core.Aggregates.CategoryAggregate.Category", null)
-                        .WithMany()
+                    b.HasOne("DotNetMP.Catalog.Core.Aggregates.CategoryAggregate.Category", "Category")
+                        .WithMany("Items")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("DotNetMP.Catalog.Core.Aggregates.CategoryAggregate.Category", b =>
+                {
+                    b.Navigation("ChildCategories");
+
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
