@@ -27,7 +27,7 @@ public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand>
             throw new NotFoundException();
         }
 
-        var category = await _categoriesRepository.GetByIdAsync(request.Id, cancellationToken);
+        var category = await _categoriesRepository.GetByIdAsync(request.CategoryId, cancellationToken);
         if (category == null)
         {
             throw new NotFoundException();
@@ -38,6 +38,8 @@ public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand>
         item.UpdatePrice(request.Price);
         item.UpdateImage(request.Image);
         item.UpdateCategory(category);
+
+        await _itemsRepository.UpdateAsync(item, cancellationToken);
 
         return Unit.Value;
     }

@@ -20,7 +20,7 @@ internal class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     public AppDbContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"), m => { m.EnableRetryOnFailure(); });
+        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("SqlServerConnection"), m => { m.EnableRetryOnFailure(); });
 
         return new AppDbContext(optionsBuilder.Options);
     }

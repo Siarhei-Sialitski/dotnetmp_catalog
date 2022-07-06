@@ -19,13 +19,13 @@ public class ItemsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id:Guid}")]
+    [Route("{id:guid}")]
     [ProducesResponseType(typeof(ItemRecord), (int)HttpStatusCode.OK)]
     [ProducesResponseType((int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-    public async Task<IActionResult> GetItemById(Guid itemId, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetItemById(Guid id, CancellationToken cancellationToken)
     {
-        var queryResult = await _mediator.Send(new GetItemByIdQuery(itemId), cancellationToken);
+        var queryResult = await _mediator.Send(new GetItemByIdQuery(id), cancellationToken);
         return Ok(queryResult);
     }
 
@@ -64,5 +64,16 @@ public class ItemsController : ControllerBase
         await _mediator.Send(updateItemCommand, cancellationToken);
 
         return Ok();
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+    public async Task<IActionResult> DeleteItem(Guid id, CancellationToken cancellationToken)
+    {
+        var _ = await _mediator.Send(new DeleteItemCommand(id), cancellationToken);
+        return NoContent();
     }
 }
