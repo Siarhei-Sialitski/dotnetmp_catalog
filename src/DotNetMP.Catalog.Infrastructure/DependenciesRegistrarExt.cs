@@ -11,7 +11,7 @@ public static class DependenciesRegistrarExt
     public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<AppDbContext>(opt => {
-            opt.UseSqlServer(configuration.GetConnectionString("SqllServerConnection"));
+            opt.UseSqlServer(configuration.GetConnectionString("SqlServerConnection"));
         });
 
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));

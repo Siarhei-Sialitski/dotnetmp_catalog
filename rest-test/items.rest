@@ -1,0 +1,40 @@
+@categoryId = 270ba685-6e95-402b-3cb8-08da5fee9c00
+@itemId = f28f30cf-6acc-48ae-98ce-08da5ff0a0e5
+
+### Get All Items
+GET {{host}}/api/items
+?pageSize=2
+&pageIndex=1 HTTP/2.0
+
+### Get Item by Id
+GET {{host}}/api/items/{{itemId}}
+
+### Create Item
+POST {{host}}/api/items
+Content-Type: application/json
+
+{
+    "categoryId": "8828e9ca-2d88-4c2b-5d0b-08da5f6efe82",
+    "name": "Third item",
+    "price": 12.5000,
+    "amount": 10,
+    "description": "Samsung 11N",
+    "image": null
+}
+
+### Update Category
+PUT {{host}}/api/items/{{itemId}}
+Content-Type: application/json
+
+{
+  "id": "f28f30cf-6acc-48ae-98ce-08da5ff0a0e5",
+  "categoryId": "8828e9ca-2d88-4c2b-5d0b-08da5f6efe82",
+  "name": "Third item upd",
+  "price": 12.5000,
+  "amount": 10,
+  "description": "Samsung 11N",
+  "image": null
+}
+
+### Delete Category
+DELETE  {{host}}/api/items/{{itemId}}
