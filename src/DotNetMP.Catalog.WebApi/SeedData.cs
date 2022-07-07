@@ -10,20 +10,18 @@ public static class SeedDataManager
     {
         using (var scope = webApp.Services.CreateScope())
         {
-            using (var appContext = scope.ServiceProvider.GetRequiredService<AppDbContext>())
+            using var appContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            try
             {
-                try
+                if (appContext.Categories.Any())
                 {
-                    if (appContext.Categories.Any())
-                    {
-                        return webApp;
-                    }
-                    PopulateTestData(appContext);
+                    return webApp;
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
+                PopulateTestData(appContext);
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
         return webApp;

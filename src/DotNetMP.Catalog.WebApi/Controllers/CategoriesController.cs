@@ -34,9 +34,9 @@ public class CategoriesController : ControllerBase
         var hateosResult = new List<HateosCategoryRecord>();
         foreach (var category in commandResult)
         {
-            var categoryLinks = CreateLinksForCategory(category.id);
+            var categoryLinks = CreateLinksForCategory(category.Id);
 
-            hateosResult.Add(new HateosCategoryRecord(category.id, category.name, category.image, category.parentCategoryId, categoryLinks.ToList()));
+            hateosResult.Add(new HateosCategoryRecord(category.Id, category.Name, category.Image, category.ParentCategoryId, categoryLinks.ToList()));
         }
 
         return Ok(hateosResult);
@@ -50,8 +50,8 @@ public class CategoriesController : ControllerBase
     public async Task<IActionResult> GetCategoryById(Guid id, CancellationToken cancellationToken)
     {
         var queryResult = await _mediator.Send(new GetCategoryByIdQuery(id), cancellationToken);
-        var categoryLinks = CreateLinksForCategory(queryResult.id);
-        var hateosResponse = new HateosCategoryRecord(queryResult.id, queryResult.name, queryResult.image, queryResult.parentCategoryId, categoryLinks.ToList());
+        var categoryLinks = CreateLinksForCategory(queryResult.Id);
+        var hateosResponse = new HateosCategoryRecord(queryResult.Id, queryResult.Name, queryResult.Image, queryResult.ParentCategoryId, categoryLinks.ToList());
         return Ok(hateosResponse);
     }
 

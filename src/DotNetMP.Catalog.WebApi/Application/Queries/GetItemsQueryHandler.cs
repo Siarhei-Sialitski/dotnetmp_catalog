@@ -25,7 +25,7 @@ public class GetItemsQueryHandler : IRequestHandler<GetItemsQuery, PaginatedItem
                 .ToList();
         }
 
-        var totalCount = totalItems.LongCount();
+        var totalCount = totalItems.Count;
 
         var itemsOnPage = totalItems
             .Skip(request.PageSize * request.PageIndex)

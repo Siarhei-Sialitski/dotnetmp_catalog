@@ -2,14 +2,9 @@
 
 public class Link
 {
-    public string Href { get; set; }
-    public string Rel { get; set; }
-    public string Method { get; set; }
-
-    public Link()
-    {
-
-    }
+    public string Href { get; private set; }
+    public string Rel { get; private set; }
+    public string Method { get; private set; }
 
     public Link(string href, string rel, string method)
     {

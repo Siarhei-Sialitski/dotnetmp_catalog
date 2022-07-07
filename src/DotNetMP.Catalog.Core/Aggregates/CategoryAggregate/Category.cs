@@ -7,8 +7,8 @@ namespace DotNetMP.Catalog.Core.Aggregates.CategoryAggregate;
 
 public class Category : EntityBase, IAggregateRoot
 {
-    private List<Category> _childCategories = new List<Category>();
-    private List<Item> _items = new List<Item>();
+    private readonly List<Category> _childCategories = new();
+    private readonly List<Item> _items = new();
 
     public string Name { get; private set; } = null!;
     public string? Image { get; private set; }

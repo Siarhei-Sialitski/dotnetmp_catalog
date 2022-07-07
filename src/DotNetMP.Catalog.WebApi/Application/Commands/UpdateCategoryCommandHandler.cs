@@ -16,7 +16,7 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
 
     public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {
-        var category = await _categoryRepository.GetByIdAsync(request.Id);
+        var category = await _categoryRepository.GetByIdAsync(request.Id, cancellationToken);
         if (category == null)
         {
             throw new NotFoundException();
@@ -25,7 +25,7 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
         Category? parentCategory = null;
         if (request.ParentCategoryId.HasValue)
         {
-            parentCategory = await _categoryRepository.GetByIdAsync(request.ParentCategoryId.Value);
+            parentCategory = await _categoryRepository.GetByIdAsync(request.ParentCategoryId.Value, cancellationToken);
             if (parentCategory == null)
             {
                 throw new NotFoundException("Parent category doesn't exist.");

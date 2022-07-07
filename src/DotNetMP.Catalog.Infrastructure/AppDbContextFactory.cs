@@ -7,7 +7,7 @@ namespace DotNetMP.Catalog.Infrastructure;
 
 internal class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
-    private IConfigurationRoot _configuration;
+    private readonly IConfigurationRoot _configuration;
 
     public AppDbContextFactory()
     {

@@ -25,7 +25,7 @@ public class ItemTests
     public void Constructor_InvalidNameIsSent_ArgumentExceptionThrown(string name)
     {
         // Arrange
-        Category category = new Category("category");
+        var category = new Category("category");
 
         // Act
         var exception = Assert.Throws<ArgumentException>(() => new Item(category, name, 1, 1));
@@ -42,7 +42,7 @@ public class ItemTests
     public void Constructor_InvalidPriceIsSent_ArgumentExceptionThrown(decimal price)
     {
         // Arrange
-        Category category = new Category("category");
+        var category = new Category("category");
 
         // Act
         var exception = Assert.Throws<ArgumentException>(() => new Item(category, "name", price, 1));
@@ -59,7 +59,7 @@ public class ItemTests
     public void Constructor_InvalidAmounIsSent_ArgumentExceptionThrown(int amount)
     {
         // Arrange
-        Category category = new Category("category");
+        var category = new Category("category");
 
         // Act
         var exception = Assert.Throws<ArgumentException>(() => new Item(category, "name", 1, amount));
@@ -73,7 +73,7 @@ public class ItemTests
     public void UpdateName_NullNameIsSent_ArgumentNullExceptionThrown()
     {
         // Arrange
-        Category category = new Category("category");
+        var category = new Category("category");
         var initialName = "initialName";
         var item = new Item(category, initialName, 1, 1);
 
@@ -92,7 +92,7 @@ public class ItemTests
     public void UpdateName_InvalidNameIsSent_ArgumentExceptionThrown(string name)
     {
         // Arrange
-        Category category = new Category("category");
+        var category = new Category("category");
         var initialName = "initialName";
         var item = new Item(category, initialName, 1, 1);
 
@@ -112,7 +112,7 @@ public class ItemTests
     public void UpdatePrice_InvalidPriceIsSent_ArgumentExceptionThrown(decimal price)
     {
         // Arrange
-        Category category = new Category("category");
+        var category = new Category("category");
         decimal initialPrice = 10.5M;
         var item = new Item(category, "name", initialPrice, 1);
 
@@ -132,7 +132,7 @@ public class ItemTests
     public void UpdateAmount_InvalidAmountIsSent_ArgumentExceptionThrown(int amount)
     {
         // Arrange
-        Category category = new Category("category");
+        var category = new Category("category");
         var initialAmount = 10;
         var item = new Item(category, "name", 1, initialAmount);
 

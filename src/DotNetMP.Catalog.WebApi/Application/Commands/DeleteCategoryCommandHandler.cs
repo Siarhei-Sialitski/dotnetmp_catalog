@@ -21,20 +21,20 @@ public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryComman
 
     public async Task<Unit> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
     {
-        var category = await _categoryRepository.GetByIdAsync(request.Id);
+        var category = await _categoryRepository.GetByIdAsync(request.Id, cancellationToken);
         if (category == null)
         {
             throw new NotFoundException();
         }
 
-        var items = await _itemsRepository.ListAsync();
+        var items = await _itemsRepository.ListAsync(cancellationToken);
 
         var itemsToDelete = items
             .Where(i => i.CategoryId == category.Id);
 
         foreach (var item in itemsToDelete)
         {
-            await _itemsRepository.DeleteAsync(item);
+            await _itemsRepository.DeleteAsync(item, cancellationToken);
         }
 
         await _categoryRepository.DeleteAsync(category, cancellationToken);

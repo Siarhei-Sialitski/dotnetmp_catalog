@@ -18,7 +18,7 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
         Category? parentCategory = null;
         if (request.ParentCategoryId.HasValue)
         {
-            parentCategory = await _categoryRepository.GetByIdAsync(request.ParentCategoryId.Value);
+            parentCategory = await _categoryRepository.GetByIdAsync(request.ParentCategoryId.Value, cancellationToken);
             if (parentCategory == null)
             {
                 throw new InvalidOperationException("Parent category doesn't exist.");
