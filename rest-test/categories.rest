@@ -1,0 +1,31 @@
+@categoryId = 270ba685-6e95-402b-3cb8-08da5fee9c00
+
+### Get All Categories
+GET {{host}}/api/categories HTTP/2.0
+
+### Get Category by Id
+GET {{host}}/api/categories/{{categoryId}}
+
+### Create Category
+POST {{host}}/api/categories
+Content-Type: application/json
+
+{
+    "Name": "Phones",
+    "Image": null,
+    "ParentCategory": null
+}
+
+### Update Category
+PUT {{host}}/api/categories/{{categoryId}}
+Content-Type: application/json
+
+{
+    "id": "270ba685-6e95-402b-3cb8-08da5fee9c00",
+    "Name": "Phones updated",
+    "Image": null,
+    "ParentCategory": null
+}
+
+### Delete Category
+DELETE  {{host}}/api/categories/{{categoryId}}
