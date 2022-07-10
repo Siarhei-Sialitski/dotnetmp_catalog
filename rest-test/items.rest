@@ -1,10 +1,10 @@
-@categoryId = 270ba685-6e95-402b-3cb8-08da5fee9c00
-@itemId = f28f30cf-6acc-48ae-98ce-08da5ff0a0e5
+@categoryId = 27172db9-5d6c-4b75-e7c4-08da5678c9cc
+@itemId = 57e96b41-435d-471d-d311-08da5678c9de
 
 ### Get All Items
-GET {{host}}/api/items
-?pageSize=2
-&pageIndex=1 HTTP/2.0
+GET {{host}}/api/items?
+#pageSize=2
+#&pageIndex=1 HTTP/2.0
 
 ### Get Item by Id
 GET {{host}}/api/items/{{itemId}}
@@ -14,7 +14,7 @@ POST {{host}}/api/items
 Content-Type: application/json
 
 {
-    "categoryId": "8828e9ca-2d88-4c2b-5d0b-08da5f6efe82",
+    "categoryId": "{{categoryId}}",
     "name": "Third item",
     "price": 12.5000,
     "amount": 10,
@@ -22,19 +22,19 @@ Content-Type: application/json
     "image": null
 }
 
-### Update Category
+### Update Item
 PUT {{host}}/api/items/{{itemId}}
 Content-Type: application/json
 
 {
-  "id": "f28f30cf-6acc-48ae-98ce-08da5ff0a0e5",
-  "categoryId": "8828e9ca-2d88-4c2b-5d0b-08da5f6efe82",
-  "name": "Third item upd",
-  "price": 12.5000,
+  "id": "{{itemId}}",
+  "categoryId": "{{categoryId}}",
+  "name": "Samsung updated via message bus 4",
+  "price": 15,
   "amount": 10,
-  "description": "Samsung 11N",
-  "image": null
+  "description": "Samsung TV",
+  "image": "imageurl"
 }
 
-### Delete Category
+### Delete Item
 DELETE  {{host}}/api/items/{{itemId}}

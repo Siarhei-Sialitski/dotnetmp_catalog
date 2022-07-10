@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using DotNetMP.Catalog.Core;
 using DotNetMP.Catalog.Infrastructure;
 using DotNetMP.Catalog.WebApi.Infrastructure;
 using DotNetMP.Catalog.WebApi.Infrastructure.AutofacModules;
@@ -31,7 +30,6 @@ public class Startup
         });
 
         services.AddOpenApi();
-        services.AddCoreDependencies();
         services.AddInfrastructureDependencies(Configuration);
     }
 
